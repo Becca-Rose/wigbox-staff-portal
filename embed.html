@@ -9,7 +9,11 @@ var f=document.getElementById("wb-staff-portal");
 fetch(URL_).then(function(r){if(!r.ok)throw new Error(r.status);return r.text()}).then(function(h){
 f.src=URL.createObjectURL(new Blob([h],{type:"text/html"}));
 }).catch(function(){
-f.insertAdjacentHTML("afterend",'<p style="color:#fff;text-align:center;padding:40px;font-family:sans-serif" dir="rtl">לא הצלחנו לטעון את הדף. נסו לרענן.</p>');
+var m=document.createElement("div");
+m.setAttribute("dir","rtl");
+m.style.cssText="color:#fff;text-align:center;padding:40px;font-family:sans-serif";
+m.textContent="לא הצלחנו לטעון את הדף. נסו לרענן.";
+f.parentNode.appendChild(m);
 });
 window.addEventListener("message",function(e){
 var d=e.data;
