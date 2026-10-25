@@ -15,9 +15,22 @@ m.style.cssText="color:#fff;text-align:center;padding:40px;font-family:sans-seri
 m.textContent="לא הצלחנו לטעון את הדף. נסו לרענן.";
 f.parentNode.appendChild(m);
 });
+var q=0;
+function sendView(){
+q=0;
+if(!f.contentWindow)return;
+var r=f.getBoundingClientRect();
+var vb=Math.max(0,Math.min(window.innerHeight,r.bottom)-r.top);
+f.contentWindow.postMessage({wbVisibleBottom:vb},"*");
+}
+function queueView(){if(!q)q=requestAnimationFrame(sendView)}
+window.addEventListener("scroll",queueView,{passive:true});
+window.addEventListener("resize",queueView);
 window.addEventListener("message",function(e){
 var d=e.data;
-if(e.source===f.contentWindow&&d&&d.wbPortalH){f.style.height=d.wbPortalH+"px"}
+if(e.source!==f.contentWindow||!d)return;
+if(d.wbPortalH){f.style.height=d.wbPortalH+"px";queueView()}
+if(d.wbReady){queueView()}
 });
 })();
 </script>
