@@ -1,0 +1,19 @@
+<div id="wb-staff-wrap" style="background:#0F0F11;min-height:600px;">
+<iframe id="wb-staff-portal" title="Staff links portal" style="width:100%;height:1500px;min-height:600px;border:0;background:#0F0F11;display:block;"></iframe>
+<noscript>JavaScript is required to view the staff links.</noscript>
+</div>
+<script>
+(function(){
+var URL_="https://cdn.jsdelivr.net/gh/Becca-Rose/wigbox-staff-portal@main/index.html";
+var f=document.getElementById("wb-staff-portal");
+fetch(URL_).then(function(r){if(!r.ok)throw new Error(r.status);return r.text()}).then(function(h){
+f.src=URL.createObjectURL(new Blob([h],{type:"text/html"}));
+}).catch(function(){
+f.insertAdjacentHTML("afterend",'<p style="color:#fff;text-align:center;padding:40px;font-family:sans-serif" dir="rtl">לא הצלחנו לטעון את הדף. נסו לרענן.</p>');
+});
+window.addEventListener("message",function(e){
+var d=e.data;
+if(e.source===f.contentWindow&&d&&d.wbPortalH){f.style.height=d.wbPortalH+"px"}
+});
+})();
+</script>
