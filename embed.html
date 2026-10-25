@@ -6,7 +6,7 @@
 (function(){
 var URL_="https://cdn.jsdelivr.net/gh/Becca-Rose/wigbox-staff-portal@main/index.html";
 var f=document.getElementById("wb-staff-portal");
-fetch(URL_).then(function(r){if(!r.ok)throw new Error(r.status);return r.text()}).then(function(h){
+fetch(URL_,{cache:"no-cache"}).then(function(r){if(!r.ok)throw new Error(r.status);return r.text()}).then(function(h){
 f.src=URL.createObjectURL(new Blob([h],{type:"text/html"}));
 }).catch(function(){
 var m=document.createElement("div");
